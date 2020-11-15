@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뷰 기초 익히기</title>
+</head>
+<body>
+    <div id="app">
+        <suho-button></suho-button>
+    </div>
+
+    <!-- <div id="app1">
+        
+    </div> -->
+
+    <script>
+        // Vue.component('hello-world', {
+        //     template: '<div>Hello World</div>'
+        // });
+
+        // Vue.component('suho-button', {
+        //     template: `
+        //     <div>
+        //         {{ name }}<br>
+        //         <hello-world></hello-world>
+        //         <button @click="changeText">Click</button>
+        //     </div>
+        //     `,
+        //     data() {
+        //         return {
+        //             name: 'suho'
+        //         }
+        //     },
+        //     methods: {
+        //         changeText() {
+        //             this.name = 'suhoUpdate'
+        //         }
+                
+        //     }
+        // });
+        
+        const HelloWorld = {
+            template: '<div>Hello World</div>'
+        };
+
+        const SuhoButton = {
+            components: {
+                'hello-world': HelloWorld
+            },
+            template: `
+            <div>
+                {{ name }}<br>
+                <hello-world></hello-world>
+                <button @click="changeText">Click</button>
+            </div>
+            `,
+            data() {
+                return {
+                    name: 'suho'
+                }
+            },
+            methods: {
+                changeText() {
+                    this.name = 'suhoUpdate'
+                }
+                
+            }
+        };
+        
+        
+
+        const app = new Vue({
+            el: '#app',
+            components: {
+                'suho-button': SuhoButton
+            }
+        })
+
+        // const app1 = new Vue({
+        //     el: '#app1'
+            
+        // })
+    </script>
+</body>
+</html>
