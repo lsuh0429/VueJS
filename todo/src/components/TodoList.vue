@@ -18,18 +18,19 @@ export default {
     components: {
       Todo  
     },
-    props: {
-        todos: {
-            type: Array,
-            required: true
-        }
-    },
     methods: {
         toggleCheckbox(value) {
-            this.$emit('toggle-checkbox', value);
+            //this.$emit('toggle-checkbox', value);
+            this.$store.commit('TOGGLE_TODO', value)
         },
         deleteTodo(todoId) {
-            this.$emit('click-delete', todoId);
+            //this.$emit('click-delete', todoId);
+            this.$store.commit('DELETE_TODO', todoId)
+        }
+    },
+    computed: {
+        todos() {
+            return this.$store.state.todos;
         }
     }
 }
