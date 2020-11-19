@@ -17,6 +17,7 @@
             class="btn btn-danger btn-small" @click="clickDelete">
             
             Delete</button>
+            {{ numberOfCompletedTodo }}
     </div>
 </template>0
 
@@ -34,14 +35,19 @@ export default {
             //     id: this.todo.id,
             //     checked: e.target.checked
             // });
-            this.$store.dispatch('toggleTodo',{
+            this.$store.dispatch('todo/toggleTodo',{
                 id: this.todo.id,
                 checked: e.target.checked
             });
         },
         clickDelete() {
             //this.$emit('click-delete', this.todo.id);
-            this.$store.dispatch('deleteTodo', this.todo.id);
+            this.$store.dispatch('todo/deleteTodo', this.todo.id);
+        }
+    },
+    computed: {
+        numberOfCompletedTodo() {
+            return this.$store.getters['todo/numberOfCompletedTodo'];
         }
     }
 }
