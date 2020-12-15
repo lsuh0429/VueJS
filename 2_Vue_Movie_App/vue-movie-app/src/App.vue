@@ -1,8 +1,11 @@
 <template>
   <v-app>
     <v-container>
+      <!-- 검색 바 -->
       <search-bar />
+      <!-- 영화 목록 -->
       <movie-list />
+      <v-btn color="primary">123123</v-btn>
     </v-container>
   </v-app>
 </template>

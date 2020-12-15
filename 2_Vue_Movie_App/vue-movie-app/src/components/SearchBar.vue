@@ -31,7 +31,7 @@ export default {
     methods: {
         async searchMovies() {
             this.loading = true;
-            const res = await axios.get(`https://www.omdbapi.com/?apikey=9d38c929&s=${this.title}`);
+            const res = await axios.post(`https://www.omdbapi.com/?apikey=9d38c929&s=${this.title}`);
             console.log(res.data);
             this.loading = false;
         }
