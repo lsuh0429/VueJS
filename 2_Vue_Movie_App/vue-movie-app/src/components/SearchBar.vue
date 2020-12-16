@@ -1,9 +1,9 @@
 <template>
     <div>
         <v-text-field
-         v-model="title"
-         outlined
-         @keypress.enter="searchMovies">
+            v-model="title"
+            outlined
+            @keypress.enter="searchMovies">
             <template v-slot:prepend-inner>
                 <v-icon>search</v-icon>
             </template>
@@ -19,22 +19,28 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
-    data() {
-        return {
-            title: '',
-            loading: false
+    computed: {
+        title: {
+            get() {
+                return this.$store.state.movie.title
+            },
+            set(title) {
+                this.$store.commit('movie/updateState', {
+                    title
+                })
+            }
+        },
+        loading() {
+            return this.$store.state.movie.loading
         }
     },
     methods: {
-        async searchMovies() {
-            this.loading = true;
-            const res = await axios.post(`https://www.omdbapi.com/?apikey=9d38c929&s=${this.title}`);
-            console.log(res.data);
-            this.loading = false;
-        }
+        ...mapActions('movie', [
+            'searchMovies'
+        ])
     }
 }
 </script>
