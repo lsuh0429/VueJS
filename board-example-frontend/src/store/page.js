@@ -40,6 +40,19 @@ export default {
         },
         destroyMyInfo(state) {
             state.me = null
+        },
+        updateComment(state, payload) {
+            state.post.comments.push(payload)
+        },
+        editComment(state, payload) {
+            const { id: commentId, contents, updatedAt } = payload
+            const targetComment = state.post.comments.find(comment => comment.id === commentId)
+            targetComment.contents = contents
+            targetComment.updatedAt = updatedAt
+        },
+        deleteComment(state, commentId) {
+            const targetIndex = state.post.comments.findIndex(comment => comment.id === commentId)
+            state.post.comments.splice(targetIndex, 1)
         }
         /* updateState(state, payload) {
             Object.keys(payload).forEach(key => {
@@ -90,6 +103,27 @@ export default {
         signout({commit}) {
             commit('destroyAccessToken')
             commit('destroyMyInfo')
+        },
+        createComment({commit, state}, contents) {
+            const postId = state.post.id
+            return api.post(`/posts/${postId}/comments`, {contents})
+            .then(res => {
+                commit('updateComment', res.data)
+            })
+        },
+        editComment({commit, state}, {commentId, comment}) {
+            const postId = state.post.id
+            return api.put(`/posts/${postId}/comments/${commentId}`, { contents: comment })
+            .then(res=> {
+                commit('editComment', res.data)
+            })
+        },
+        deleteComment({commit, state}, commentId) {
+            const postId = state.post.id
+            return api.delete(`/posts/${postId}/comments/${commentId}`)
+            .then(res => {  // eslint-disable-line no-unused-vars
+                commit('deleteComment', commentId)
+            })
         }
         /* async selectPageList({commit}){
             await axios.get('/demo/page/selectPageList').then(res => {

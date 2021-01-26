@@ -29,7 +29,7 @@ export default {
     methods: {
         onSubmit() {
             const { title, contents } = this
-            this.$emit('submit', { title,contents })
+            this.$emit('submit', { title, contents })
         }
     }
 }

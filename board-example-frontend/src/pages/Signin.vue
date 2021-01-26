@@ -19,9 +19,9 @@ export default {
         onSubmit(payload) {
             this.signin(payload)
             .then(res => {
+                console.log(res)
                 alert('로그인이 완료되었습니다.')
                 this.$router.push({name:'PostListPage'})
-                console.log(res)
             })
             .catch(err => {
                 alert(err.response.data.msg)
